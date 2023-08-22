@@ -2,74 +2,131 @@
 using namespace std;
 #define read(type) readInt<type>() // Fast read
 #define ll long long
-#define nl "\n"
-
+#define nL "\n"
+#define pb push_back
+#define mk make_pair
+#define pii pair<int, int>
+#define vi vector<int>
+#define all(x) (x).begin(), (x).end()
+#define umap unordered_map
+#define uset unordered_set
+#define MOD 1000000007
 void solve()
 {
     int n;
     cin >> n;
-    ll arr[n + 1];
-    arr[0] = 0;
-    map<int, int> m;
-    for (int i = 1; i <= n; i++)
+    if (n % 2 == 1)
     {
-        cin >> arr[i];
-        m[arr[i]] = i;
-    }
-    if (n == 1 || is_sorted(arr+1,arr+n+1))
-    {
-        cout << 0 << nl;
-        return;
-    }
-    int x, y;
-    if (n % 2 == 0)
-    {
-        x = (n / 2);
-        y = (n / 2) + 1;
-        while (((((y - x + 1)) <= n) && (m[y] < m[x]) && (m[y] - m[x] == y - x)))
+        int arr[n];
+        int mid_value = (n + 1) / 2;
+        int mid_index;
+
+        for (int i = 0; i < n; i++)
         {
-            x++;
-            y++;
+            cin >> arr[i];
+            if (mid_value == arr[i])
+            {
+                mid_index = i;
+            }
         }
-        cout << "x " << x << " y " << y << nl;
-        cout << (n - (y - x + 1 - 2)) / 2;
+        int left_cnt = 0, right_cnt = 0;
+        int j = mid_index - 1;
+        // left_search
+        while (j >= 0)
+        {
+            if (arr[j] == mid_value - left_cnt - 1)
+            {
+                left_cnt++;
+            }
+            j--;
+        }
+        j = mid_index + 1;
+        while (j < n)
+        {
+            if (arr[j] == mid_value + right_cnt + 1)
+            {
+                right_cnt++;
+            }
+            j++;
+        }
+        int ans = max(n / 2 - left_cnt, n / 2 - right_cnt);
+        cout << ans << endl;
     }
     else
     {
-        x = (n / 2) ;
-        y = (n / 2) + 2;
-        while (((y - x + 1) <= n) && (m[y] < m[x]) && (m[y] - m[x] == y - x))
-        {
-            x++;
-            y++;
-        }
-        cout << "x " << x << " y " << y << nl;
-        cout << (n - (y - x + 1 - 2)) / 2;
-    }
-    cout << nl;
-}
 
-int main()
+        int arr[n];
+        int mid_value1 = (n / 2), mid_value2 = n / 2 + 1;
+        int mid_index1, mid_index2;
+
+        for (int i = 0; i < n; i++)
+        {
+            cin >> arr[i];
+            if (mid_value1 == arr[i])
+            {
+                mid_index1 = i;
+            }
+            if (mid_value2 == arr[i])
+            {
+                mid_index2 = i;
+            }
+        }
+        int left_cnt = 0, right_cnt = 0;
+        int j = mid_index1 - 1;
+        // left_search
+        while (j >= 0)
+        {
+            if (arr[j] == mid_value1 - left_cnt - 1)
+            {
+                left_cnt++;
+            }
+            j--;
+        }
+        j = mid_index1 + 1;
+        while (j < n)
+        {
+            if (arr[j] == mid_value1 + right_cnt + 1)
+            {
+                right_cnt++;
+            }
+            j++;
+        }
+        int ans = max(n / 2 - left_cnt - 1, n / 2 - right_cnt);
+        // again for second one
+        left_cnt = 0, right_cnt = 0;
+        j = mid_index2 - 1;
+
+        while (j >= 0)
+        {
+            if (arr[j] == mid_value2 - left_cnt - 1)
+            {
+                left_cnt++;
+            }
+            j--;
+        }
+        j = mid_index1 + 1;
+        while (j < n)
+        {
+            if (arr[j] == mid_value2 + right_cnt + 1)
+            {
+                right_cnt++;
+            }
+            j++;
+        }
+        ans = max(ans, max(n / 2 - left_cnt, n / 2 - right_cnt - 1));
+
+        cout << ans << endl;
+    }
+}
+int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
-    cin >> t;
-    for (int i = 1; i <= t; i++)
+    int ttt;
+    cin >> ttt;
+    for (int i = 1; i <= ttt; i++)
     {
         solve();
     }
     return 0;
 }
-// check constraints
-// at first try a brute force way to solve
-// then optimization
-
-//  if its array:
-//  1. try greedy
-//  2. if it is a result of subproblems try dp
-//  3. if it is showing for  a range minimum or maximum
-//    3.1 tttttffffff
-//    else
-//    3.2 ffffftttttt
-//    try binary search
