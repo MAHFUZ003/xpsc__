@@ -22,23 +22,21 @@ ll h;
 int arr[101];
 bool calculate(ll mid)
 {
-    ll total =0;
-    for(int i =0;i<n-1;i++)
+    ll total = 0;
+    for (int i = 0; i < n - 1; i++)
     {
-        if(arr[i+1]-arr[i]<mid)
+        if (arr[i + 1] - arr[i] < mid)
         {
-            total += (arr[i+1]-arr[i]);
+            total += (arr[i + 1] - arr[i]);
         }
         else
         {
             total += mid;
         }
-
     }
     total += mid;
 
-
-    return total >=h;
+    return total >= h;
 }
 void solve()
 {
@@ -64,7 +62,7 @@ void solve()
             lo = mid + 1;
         }
     }
-    cout <<ans<<endl;
+    cout << ans << endl;
 }
 int32_t main()
 {
