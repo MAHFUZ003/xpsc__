@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+ #include <bits/stdc++.h>
 using namespace std;
 #define read(type) readInt<type>() // Fast read
 #define ll long long
